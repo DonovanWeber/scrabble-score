@@ -30,13 +30,43 @@ namespace ScrabbleScore.Tests
       int valueOfLetter = 1;
       Scrabble newScrabble = new Scrabble(letter, valueOfLetter);
       Dictionary<string, int> newDictionaryScrabble = new Dictionary<string, int>();
-      newDictionaryScrabble.Add("a", 1);
+      newDictionaryScrabble.Add(letter, valueOfLetter);
       int testScrabbleValue = newDictionaryScrabble["a"];
+      
       Dictionary<string, int> result = Scrabble.GetAll();
       int finalResult = result["a"];
-     
       Assert.AreEqual(testScrabbleValue, finalResult);
     }
-
+    [TestMethod]
+    public void GetKeyValues_ReturnTotalValue_Int()
+    {
+    string testWord = "add";
+    char[] testCharArrayWord = testWord.ToCharArray();
+    Dictionary<string, int> testDictionary = new  Dictionary<string, int>();
+    testDictionary.Add("a", 1);
+    testDictionary.Add("d", 2);
+    List<string> stringList = new List<string>{};
+    foreach (char ch in testCharArrayWord)
+    {
+     string kvp = ch.ToString();
+     stringList.Add(kvp);
+     
+    }
+    int totalValue = 0;
+    foreach(string Letter in stringList)
+    {
+      int value = testDictionary[Letter];
+      totalValue += value;
+    }
+    int resultTotalValue = 0;
+    Dictionary<string, int> result = Scrabble.GetAll();
+    foreach(string Letter in stringList)
+    {
+      int value = result[Letter];
+      resultTotalValue += value;
+    }
+    Console.WriteLine(totalValue);
+    Assert.AreEqual(totalValue, resultTotalValue);
+    }
   }
 }
